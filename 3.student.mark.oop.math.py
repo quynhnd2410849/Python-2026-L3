@@ -25,9 +25,8 @@ class MarkManagement:
     def __init__(self):
         self.students = []
         self.courses = []
-        self.marks = {}  # {course_id: {student_id: mark}}
+        self.marks = {}
 
-    # Input methods
     def input_students(self):
         n = int(input("Enter number of students: "))
         for _ in range(n):
@@ -54,11 +53,9 @@ class MarkManagement:
 
         for student in self.students:
             raw_mark = float(input(f"Enter mark for {student.name} (ID: {student.id}): "))
-            # Round down to 1 decimal place
             mark = math.floor(raw_mark * 10) / 10.0
             self.marks[course_id][student.id] = mark
 
-    # GPA calculation
     def calculate_gpa(self, student_id):
         marks_list = []
         credits_list = []
@@ -73,14 +70,13 @@ class MarkManagement:
         gpa = np.sum(marks_array * credits_array) / np.sum(credits_array)
         return round(gpa, 2)
 
-    # Listing methods
     def list_students(self):
-        print("\n--- Students ---")
+        print("Students")
         for s in self.students:
             print(s)
 
     def list_courses(self):
-        print("\n--- Courses ---")
+        print("Courses")
         for c in self.courses:
             print(c)
 
@@ -89,7 +85,7 @@ class MarkManagement:
         if course_id not in self.marks:
             print("No marks recorded for this course.")
             return
-        print(f"\n--- Marks for course {course_id} ---")
+        print(f"Marks for course {course_id} ")
         for sid, mark in self.marks[course_id].items():
             student = next(s for s in self.students if s.id == sid)
             print(f"{student.name} (ID: {sid}): {mark}")
@@ -97,16 +93,14 @@ class MarkManagement:
     def sort_students_by_gpa(self):
         gpa_list = [(s, self.calculate_gpa(s.id)) for s in self.students]
         gpa_list.sort(key=lambda x: x[1], reverse=True)
-        print("\n--- Students sorted by GPA ---")
+        print("Students sorted by GPA")
         for student, gpa in gpa_list:
             print(f"{student.name} (ID: {student.id}) GPA: {gpa}")
 
-
-# Main program
 def main():
     manager = MarkManagement()
     while True:
-        print("\n--- Student Mark Management (OOP + math + numpy) ---")
+        print("Student Mark Management (OOP + math + numpy)")
         print("1. Input students")
         print("2. Input courses")
         print("3. Input marks")
